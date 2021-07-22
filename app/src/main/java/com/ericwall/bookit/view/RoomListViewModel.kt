@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class RoomListViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val locationRepository: LocationRepository
 ) : ViewModel() {
 
@@ -27,13 +27,17 @@ class RoomListViewModel @Inject constructor(
         viewModelScope.launch {
             locationRepository.getLocations()
                 .onStart {
-                    println("loadLocations Start")
+                    // todo add loading dialog
                 }
                 .catch { exception ->
-                    println("loadLocations Exception $exception")
+                    // todo add some kind of error object, or wrap live data with State
+                    Timber.e(exception, "Error loading locations try to get from DB")
+                    // Probably could handle this better
+                    locationRepository.getSavedLocations().collect {
+                        _locations.value = it
+                    }
                 }
                 .collect {
-                    println("loadLocations Collect $it")
                     _locations.value = it
                 }
         }

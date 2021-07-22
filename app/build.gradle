@@ -89,6 +89,9 @@ dependencies {
     // Dependency Injection
     implementation 'com.google.dagger:hilt-android:2.37'
     kapt 'com.google.dagger:hilt-compiler:2.37'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
 dependencies {
