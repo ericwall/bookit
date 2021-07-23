@@ -13,4 +13,7 @@ interface LocationDao {
 
     @Insert
     fun insertLocations(vararg location: Location)
+
+    @Query("DELETE FROM location")
+    fun deleteSaveLocations()
 }

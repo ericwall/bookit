@@ -2,4 +2,9 @@
     <string name="app_name">BookIt</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="room_list_info_placeholder">Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum dolor ultricies donec risus sodales. Tempus quis et.</string>
+    <string name="room_list_title">Rooms</string>
+    <string name="room_name">Lorem ipsum</string>
+    <string name="spots_remaining">5 spots remaining</string>
+    <string name="bookit">Book!</string>
 </resources>

@@ -14,9 +14,10 @@ class LocationRepository @Inject constructor(private val api: LocationService, p
     fun getLocations(): Flow<List<Location>> {
         return flow {
             val locations = api.getLocations()
+            locationDao.deleteSaveLocations()
             locationDao.insertLocations(*locations.locations.toTypedArray())
             emit(locations.locations)
-        }.flowOn(Dispatchers.IO) // Use the IO thread for this Flow
+        }.flowOn(Dispatchers.IO)
     }
 
     fun getSavedLocations(): Flow<List<Location>> {

@@ -31,7 +31,7 @@ class RoomListViewModel @Inject constructor(
                 }
                 .catch { exception ->
                     // todo add some kind of error object, or wrap live data with State
-                    Timber.e(exception, "Error loading locations try to get from DB")
+                    Timber.e(exception, "Eric Error loading locations try to get from DB $exception")
                     // Probably could handle this better
                     locationRepository.getSavedLocations().collect {
                         _locations.value = it
