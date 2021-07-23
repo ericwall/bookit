@@ -16,6 +16,6 @@ Coroutines and flowable pattern is used for reactive architecture
 - Provide values through strings.xml / decrease hardcoding
 - Implement some tests both unit and functional
 
-[Alt text](images/screenshot_1.png?raw=true "Screenshot")
+![Alt text](images/screenshot_1.png?raw=true "Screenshot")
 
 
