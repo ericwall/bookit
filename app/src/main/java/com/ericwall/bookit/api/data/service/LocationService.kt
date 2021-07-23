@@ -11,5 +11,5 @@ interface LocationService {
     suspend fun getLocations(): AvailableLocations
 
     @GET("/bookRoom.json")
-    suspend fun reserveLocation(name: String): ReservationResponse
+    suspend fun reserveLocation(): ReservationResponse
 }

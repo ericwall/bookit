@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ericwall.bookit.databinding.FragmentRoomListBinding
 import com.ericwall.bookit.view.adapter.LocationAdapter
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class RoomListFragment @Inject constructor() : Fragment() {
 
     private lateinit var binding: FragmentRoomListBinding
-    val roomListViewModel: RoomListViewModel by viewModels()
+    private val roomListViewModel: RoomListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +29,10 @@ class RoomListFragment @Inject constructor() : Fragment() {
         binding.vm = roomListViewModel
 
         binding.rvLocations.layoutManager = GridLayoutManager(this.context, 4)
-        binding.rvLocations.adapter = LocationAdapter()
+        binding.rvLocations.adapter = LocationAdapter(roomListViewModel)
 
         observeLocations()
+        observeReservation()
 
         return binding.root
     }
@@ -43,4 +45,20 @@ class RoomListFragment @Inject constructor() : Fragment() {
                 }
             })
     }
+
+    fun observeReservation() {
+        roomListViewModel.reservationSuccess.observe(viewLifecycleOwner, { success ->
+
+            val message = if (success) {
+                "Location Booked"
+            } else {
+                "Could not book Location, check connection"
+            }
+
+            this.view?.let {
+                Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 }

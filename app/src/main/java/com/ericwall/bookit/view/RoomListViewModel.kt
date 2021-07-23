@@ -19,6 +19,9 @@ class RoomListViewModel @Inject constructor(
     private val _locations = MutableLiveData<List<Location>>()
     val locations: LiveData<List<Location>> get() = _locations
 
+    private val _reservationSuccess = MutableLiveData<Boolean>()
+    val reservationSuccess: LiveData<Boolean> get() = _reservationSuccess
+
     init {
         loadLocations()
     }
@@ -31,7 +34,7 @@ class RoomListViewModel @Inject constructor(
                 }
                 .catch { exception ->
                     // todo add some kind of error object, or wrap live data with State
-                    Timber.e(exception, "Eric Error loading locations try to get from DB $exception")
+                    Timber.e(exception, "Error loading locations try to get from DB $exception")
                     // Probably could handle this better
                     locationRepository.getSavedLocations().collect {
                         _locations.value = it
@@ -39,6 +42,21 @@ class RoomListViewModel @Inject constructor(
                 }
                 .collect {
                     _locations.value = it
+                }
+        }
+    }
+
+    fun reserveLocation(name: String) {
+        viewModelScope.launch {
+            locationRepository.reserveLocation(name)
+                .onStart {
+                    // todo add loading dialog
+                }
+                .catch { exception ->
+                    _reservationSuccess.value = false
+                }
+                .collect {
+                    _reservationSuccess.value = it.success
                 }
         }
     }
