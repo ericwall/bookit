@@ -6,6 +6,8 @@ Basic application using MVVM, combined with typical android libraries like Hilt,
 
 Coroutines and flowable pattern is used for reactive architecture
 
+Built with AS Beta - Arctic Fox 2021.3.1 RC 1
+
 # Next Steps
 
 - Clean up recyclerview adapter and move to view binding, some quick copy paste to get it working
